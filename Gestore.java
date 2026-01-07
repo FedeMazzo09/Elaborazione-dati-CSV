@@ -15,8 +15,12 @@ public class Gestore {
         return counter;
     }
 
+    public Record getRecord(int index) {
+        return records[index];
+    }
+
     public void leggiFile() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("Mazzoleni.csv"));
+        BufferedReader br = new BufferedReader(new FileReader(nomeFile));
         String riga;
 
         br.readLine();
