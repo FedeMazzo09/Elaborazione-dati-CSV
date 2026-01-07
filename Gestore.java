@@ -28,4 +28,15 @@ public class Gestore {
         }
         br.close();
     }
+
+    public int lunghezzaMassimaRecord() {
+        int max = 0;
+        for (int i = 0; i < counter; i++) {
+            int lunghezza = records[i].lunghezza();
+            if (lunghezza > max) {
+                max = lunghezza;
+            }
+        }
+        return max;
+    }
 }
