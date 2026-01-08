@@ -43,4 +43,23 @@ public class Gestore {
         }
         return max;
     }
+
+    public void aggiungiRecord(Record r) {
+        if (counter < records.length) {
+            records[counter] = r;
+            counter++;
+        }
+    }
+
+    public Record ricercaPerCampoChiave(String valoreChiave, int indiceCampo) {
+        for (int i = 0; i < counter; i++) {
+            Record rec = records[i];
+            String[] campi = rec.getCampi();
+            String valore = campi[indiceCampo];
+            if (valore != null && valore.equals(valoreChiave)) {
+                return rec;
+            }
+        }
+        return null;
+    }
 }
