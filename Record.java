@@ -5,7 +5,7 @@ public class Record {
 
     public Record (String[] campi) {
         this.campi = campi;
-        mioValore = (int) (Math.random()*11)+10;
+        mioValore = (int) (Math.random() * 11) + 10;
         cancellato = false;
     }
 
@@ -18,6 +18,24 @@ public class Record {
     }
 
     public int getNumeroCampi() {
-        return campi.length;
+        return campi.length + 2;
     }
+
+    public String[] getCampi() {
+        return campi;
+    }
+
+    public boolean isCancellato() {
+        return cancellato;
+    }
+
+    public void rendiLunghezzaFissa(int lunghezzaTarget) {
+        int attuale = lunghezza();
+        int spaziDaAggiungere = lunghezzaTarget - attuale;
+
+        if (spaziDaAggiungere > 0) {
+            campi[campi.length - 1] += " ".repeat(spaziDaAggiungere);
+        }
+    }
+
 }

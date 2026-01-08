@@ -1,6 +1,6 @@
 public class Test {
     public static void main(String[] args) {
-        Gestore g = new Gestore("Mazzoleni.csv", 100);
+        Gestore g = new Gestore("Mazzoleni.csv", 200);
 
         try {
             g.leggiFile();
@@ -14,6 +14,13 @@ public class Test {
             } else {
                 System.out.println("Record non trovato con campo chiave 'Animal ID'");
             }
+            g.rendiRecordAFissalunghezza();
+            System.out.println("Record dopo la modifica:");
+            for (int i = 0; i < g.getCounter(); i++) {
+                Record rec = g.getRecord(i);
+                System.out.println("Record " + i + ": " + String.join(", ", rec.getCampi()));
+            }
+
         } catch (Exception e){
             System.out.println("Errore lettura del file");
         }

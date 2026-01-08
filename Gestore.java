@@ -62,4 +62,12 @@ public class Gestore {
         }
         return null;
     }
+
+    public void rendiRecordAFissalunghezza() {
+        int max = lunghezzaMassimaRecord();
+
+        for (int i = 0; i < counter; i++) {
+            records[i].rendiLunghezzaFissa(max);
+        }
+    }
 }
