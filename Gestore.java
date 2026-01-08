@@ -5,10 +5,10 @@ public class Gestore {
     private String nomeFile;
     private int counter;
 
-    public Gestore (String nomeFile, int max){
+    public Gestore(String nomeFile, int max) {
         this.nomeFile = nomeFile;
-        this.records = new Record[max];
-        counter=0;
+        records = new Record[max];
+        counter = 0;
     }
 
     public int getCounter() {
@@ -36,38 +36,62 @@ public class Gestore {
     public int lunghezzaMassimaRecord() {
         int max = 0;
         for (int i = 0; i < counter; i++) {
-            int lunghezza = records[i].lunghezza();
-            if (lunghezza > max) {
-                max = lunghezza;
+            int l = records[i].lunghezza();
+            if (l > max) {
+                max = l;
             }
         }
         return max;
     }
 
-    public void aggiungiRecord(Record r) {
+    public void rendiRecordFissi() {
+        int max = lunghezzaMassimaRecord();
+
+        for (int i = 0; i < counter; i++) {
+            int diff = max - records[i].lunghezza();
+            String[] campi = records[i].getCampi();
+            campi[campi.length - 1] += " ".repeat(diff);
+        }
+    }
+
+    public void aggiungiRecord(String[] campi) {
         if (counter < records.length) {
-            records[counter] = r;
+            records[counter] = new Record(campi);
             counter++;
         }
     }
 
-    public Record ricercaPerCampoChiave(String valoreChiave, int indiceCampo) {
+    public void visualizzaTreCampi(int i1, int i2, int i3) {
         for (int i = 0; i < counter; i++) {
-            Record rec = records[i];
-            String[] campi = rec.getCampi();
-            String valore = campi[indiceCampo];
-            if (valore != null && valore.equals(valoreChiave)) {
-                return rec;
+            if (!records[i].isCancellato()) {
+                String[] c = records[i].getCampi();
+                System.out.println(c[i1] + " | " + c[i2] + " | " + c[i3]);
+            }
+        }
+    }
+
+    public Record ricercaPerCampoChiave(String valore, int indiceCampo) {
+        for (int i = 0; i < counter; i++) {
+            if (!records[i].isCancellato()) {
+                if (records[i].getCampi()[indiceCampo].equals(valore)) {
+                    return records[i];
+                }
             }
         }
         return null;
     }
 
-    public void rendiRecordAFissalunghezza() {
-        int max = lunghezzaMassimaRecord();
+    public void modificaRecord(String valoreChiave, int indiceChiave, int campoDaModificare, String nuovoValore) {
+        Record r = ricercaPerCampoChiave(valoreChiave, indiceChiave);
+        if (r != null) {
+            r.setCampo(campoDaModificare, nuovoValore);
+        }
+    }
 
-        for (int i = 0; i < counter; i++) {
-            records[i].rendiLunghezzaFissa(max);
+    public void cancellaRecord(String valoreChiave, int indiceChiave) {
+        Record r = ricercaPerCampoChiave(valoreChiave, indiceChiave);
+        if (r != null) {
+            r.cancella();
         }
     }
 }
