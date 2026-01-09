@@ -33,6 +33,27 @@ public class Gestore {
         br.close();
     }
 
+    public void aggiungiRecord(String[] campi) {
+        if (counter < records.length) {
+            records[counter] = new Record(campi);
+            counter++;
+        }
+    }
+
+    public void modificaRecord(String valoreChiave, int indiceChiave, int campoDaModificare, String nuovoValore) {
+        Record r = ricercaPerCampoChiave(valoreChiave, indiceChiave);
+        if (r != null) {
+            r.setCampo(campoDaModificare, nuovoValore);
+        }
+    }
+
+    public void cancellaRecord(String valoreChiave, int indiceChiave) {
+        Record r = ricercaPerCampoChiave(valoreChiave, indiceChiave);
+        if (r != null) {
+            r.cancella();
+        }
+    }
+
     public int lunghezzaMassimaRecord() {
         int max = 0;
         for (int i = 0; i < counter; i++) {
@@ -54,13 +75,6 @@ public class Gestore {
         }
     }
 
-    public void aggiungiRecord(String[] campi) {
-        if (counter < records.length) {
-            records[counter] = new Record(campi);
-            counter++;
-        }
-    }
-
     public void visualizzaTreCampi(int i1, int i2, int i3) {
         for (int i = 0; i < counter; i++) {
             if (!records[i].isCancellato()) {
@@ -79,19 +93,5 @@ public class Gestore {
             }
         }
         return null;
-    }
-
-    public void modificaRecord(String valoreChiave, int indiceChiave, int campoDaModificare, String nuovoValore) {
-        Record r = ricercaPerCampoChiave(valoreChiave, indiceChiave);
-        if (r != null) {
-            r.setCampo(campoDaModificare, nuovoValore);
-        }
-    }
-
-    public void cancellaRecord(String valoreChiave, int indiceChiave) {
-        Record r = ricercaPerCampoChiave(valoreChiave, indiceChiave);
-        if (r != null) {
-            r.cancella();
-        }
     }
 }
