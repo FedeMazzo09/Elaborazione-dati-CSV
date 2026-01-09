@@ -4,6 +4,7 @@ public class Gestore {
     private Record[] records;
     private String nomeFile;
     private int counter;
+    private String intestazione;
 
     public Gestore(String nomeFile, int max) {
         this.nomeFile = nomeFile;
@@ -23,15 +24,16 @@ public class Gestore {
         BufferedReader br = new BufferedReader(new FileReader(nomeFile));
         String riga;
 
-        br.readLine();
+        intestazione = br.readLine();
 
         while ((riga = br.readLine()) != null && counter < records.length) {
-            String[] campi = riga.split(",");
+            String[] campi = riga.split(",", -1);
             records[counter] = new Record(campi);
             counter++;
         }
         br.close();
     }
+
 
     public void aggiungiRecord(String[] campi) {
         if (counter < records.length) {
@@ -53,6 +55,7 @@ public class Gestore {
             r.cancella();
         }
     }
+
 
     public int lunghezzaMassimaRecord() {
         int max = 0;
@@ -94,4 +97,26 @@ public class Gestore {
         }
         return null;
     }
+
+    public void scriviFile(String nomeFileOutput) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(nomeFileOutput));
+
+        bw.write(intestazione + ",miovalore,cancellato");
+        bw.newLine();
+
+        for (int i = 0; i < counter; i++) {
+            Record r = records[i];
+
+            bw.write(String.join(",", r.getCampi()));
+
+            bw.write("," + r.getMioValore());
+            bw.write("," + r.isCancellato());
+
+            bw.newLine();
+        }
+
+        bw.close();
+    }
+
+
 }

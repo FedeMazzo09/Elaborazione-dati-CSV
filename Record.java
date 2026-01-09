@@ -18,7 +18,7 @@ public class Record {
     }
 
     public int getNumeroCampi() {
-        return campi.length + 2;
+        return campi.length;
     }
 
     public String[] getCampi() {
@@ -35,6 +35,10 @@ public class Record {
 
     public boolean isCancellato() {
         return cancellato;
+    }
+
+    public int getMioValore() {
+        return mioValore;
     }
 
     public String toString() {

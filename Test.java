@@ -20,15 +20,18 @@ public class Test {
 
             g.modificaRecord("A538641", 0, 1, "MODIFICATO");
 
-            g.cancellaRecord("A538641", 0);
+            g.cancellaRecord("DAISY", 3);
 
-            String[] nuovo = {"ID999", "Nuovo", "Record"};
+            String[] nuovo = {"A666999", "CONFISCATE", "20/03/2009", "MELEYS", "BIRD", "2 YEARS", "SMALL", "RED", "COLD", "F", "http://www.petharbor.com/get_image.asp?res=DETAIL&id=A494274&location=MONT", "\"18200 LOST KNIFE CIR, MONTGOMERY VILLAGE MD 20886\""};
+
             g.aggiungiRecord(nuovo);
 
             g.rendiRecordFissi();
 
             System.out.println("Operazioni completate");
 
+            g.scriviFile("Mazzoleni_copia.csv");
+            System.out.println("File Mazzoleni_copia.csv creato con le modifiche");
         } catch (Exception e) {
             System.out.println("Errore");
         }
